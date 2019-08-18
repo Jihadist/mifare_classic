@@ -3,53 +3,62 @@
 
 #pragma once
 
-#include <iostream>
+typedef uint8_t byte;
 class block
 {
+	
 public:
-	block(std::string *s):a_(),b_(),c_(),d_()
+	explicit block(std::string* s)
 	{
-		construct(s);
+		check(s);
+		for (auto i=0;i!=16;i=i+2)
+		{
+			byteset.at(i) = std::stoi(s->substr(i, 2), 0, 16);
+		}
 	}
-	block() = default;
-	friend void read(std::ostream &os);
-	friend void read(std::string& str);
-	friend void write(std::istream& s);
-	friend void write(std::string& str);
+
+	block() :byteset(16){	}
 	friend std::ostream& operator<<(std::ostream& os, const block& obj);
 	friend std::istream& operator>>(std::istream& is, block& obj);
-	static std::string extract(block& obj)
+	static auto extract(block& obj)
 	{
-		std::stringstream ss;
-		std::string str;
-		ss << obj;
-		ss >> str;
-		return str;
+		return obj.byteset.data();
 	}
 private:
-	int a_, b_, c_, d_;
+	std::vector<byte> byteset;
 	void construct(std::string *s){
-		sscanf_s(s->substr(0, 8).c_str(), "%x", &a_);
-		sscanf_s(s->substr(8, 8).c_str(), "%x", &b_);
-		sscanf_s(s->substr(16, 8).c_str(), "%x", &c_);
-		sscanf_s(s->substr(24, 8).c_str(), "%x", &d_);
+		check(s);
+		for (byte i = 0; i != 16; ++i)
+		{
+			byteset.at(i) = std::stoi(s->substr(i*byte(2), 2), nullptr, 16);
+		}
+	}
+	void check(std::string *s)
+	{
+		if (s->size() != 32)
+			throw std::runtime_error("Uncorrected block length");
 	}
 };
 
 inline
 std::ostream& operator<<(std::ostream& os, const block& obj)
 {
-	os << std::setbase(16)<< obj.a_<<obj.b_<<obj.c_<<obj.d_;
+	os.fill('0');
+	os.flags(std::ios::hex);
+	
+	for (const byte &i : obj.byteset)
+	{
+		os.width(2);
+		os <<+i;
+	}
 	return os;
 }
 
 inline 
 std::istream& operator>>(std::istream& is, block& obj)
 {
-	std::string str;
-	is >> str;
-	obj.construct(&str);
+	std::string buf;
+	std::getline(is, buf);
+	obj.construct(&buf);
 	return is;
 }
-
-// TODO: установите здесь ссылки на дополнительные заголовки, требующиеся для программы.

@@ -2,6 +2,12 @@
 // или включаемые файлы для конкретного проекта.
 
 #pragma once
+#include <algorithm>
+#include <iosfwd>
+#include <string>
+#include <iostream>
+#include <sstream>
+#include <vector>
 
 typedef uint8_t byte;
 class block
@@ -10,33 +16,48 @@ class block
 public:
 	explicit block(std::string* s)
 	{
-		check(s);
-		for (auto i=0;i!=16;i=i+2)
-		{
-			byteset.at(i) = std::stoi(s->substr(i, 2), 0, 16);
-		}
+		if (check(s))
+			construct(s);
 	}
 
 	block() :byteset(16){	}
 	friend std::ostream& operator<<(std::ostream& os, const block& obj);
 	friend std::istream& operator>>(std::istream& is, block& obj);
-	static auto extract(block& obj)
+	static byte * extract(block& obj) { return obj.byteset.data(); }
+	block change(const byte pos, byte value)
 	{
-		return obj.byteset.data();
+		byteset.at(pos) = value;
+		return *this;
 	}
+	byte get(const byte pos) { return byteset.at(pos); }
+	
 private:
 	std::vector<byte> byteset;
-	void construct(std::string *s){
-		check(s);
-		for (byte i = 0; i != 16; ++i)
-		{
-			byteset.at(i) = std::stoi(s->substr(i*byte(2), 2), nullptr, 16);
-		}
+	void construct(std::string* s)
+	{
+		if (check(s))
+			for (byte i = 0; i != 16; ++i)
+				byteset.at(i) = std::stoi(s->substr(i * 2, 2), nullptr, 16);
 	}
-	void check(std::string *s)
+
+	static int check(std::string* s)
 	{
 		if (s->size() != 32)
-			throw std::runtime_error("Uncorrected block length");
+		{
+			std::cerr << "Uncorrected block length";
+			return 2;
+		}
+		return 1;
+	}
+
+	std::shared_ptr<std::stringstream> subblock(const byte pos, const byte len)
+	{
+		std::shared_ptr<std::stringstream> stream;
+		stream->fill('0');
+		stream->flags(std::ios::hex);
+		std::for_each(byteset.begin() + pos, byteset.end() + pos + len, [&stream](const byte n)
+			{ stream->width(2); *stream << +n; });
+		return stream;
 	}
 };
 

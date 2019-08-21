@@ -4,6 +4,6 @@
 cmake_minimum_required (VERSION 3.8)
 
 # Добавьте источник в исполняемый файл этого проекта.
-add_executable (block "block.cpp" "block.h")
+add_executable (block "main.cpp" "block.h")
 
 # TODO: Добавьте тесты и целевые объекты, если это необходимо.

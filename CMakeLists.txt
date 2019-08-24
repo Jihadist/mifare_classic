@@ -3,7 +3,7 @@
 #
 cmake_minimum_required (VERSION 3.8)
 
-project ("block")
+project ("mifare")
 
 # Включите подпроекты.
 add_subdirectory ("block")

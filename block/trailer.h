@@ -7,11 +7,11 @@ public:
 	{
 		switch (type)
 		{
-			case 'A'|'a': return "aa";
-			case 'B' | 'b': return "bb";
+			case 'A'|'a': return subblock(0);
+			case 'B' | 'b': return subblock(10);
 			default: {
 				std::cerr << "Provide type of key" << std::endl;
-				return nullptr; }
+				return NULL; }
 		}
 	}
 

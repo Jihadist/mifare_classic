@@ -1,6 +1,6 @@
 ﻿// block.cpp: определяет точку входа для приложения.
 //
-#include "../infint/InfInt.h"
+
 #include "block.h"
 #include "trailer.h"
 #include <iostream>

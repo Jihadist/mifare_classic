@@ -27,7 +27,8 @@ void block::construct(std::string* s)
 
 std::vector<byte> block::str_to_vec(const std::string* s) 
 {
-	std::vector<byte> buf(s->length()/2,NULL);
+	// условие для проверки длины входящей строки на случай строки нечетной длины
+	std::vector<byte> buf(s->length()%2==0 ? s->length()/2 : s->length()/2+1,NULL);
 	//std::cerr << "enter str_to_vec" << std::endl;
 	//std::cerr << s->length() << std::endl;
 	for (std::size_t i=0;i!=s->length()/2;++i)

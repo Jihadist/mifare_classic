@@ -30,14 +30,12 @@ protected:
 	static int check(std::string* s);
 
 	std::string subblock(const byte pos, const byte len = 6);
-	std::vector<byte> str_to_vec(const std::string* s);
+	static std::vector<byte> str_to_vec(const std::string* s);
 
 	byteset dataset;
 private:
 	
 	void construct(std::string* s);
-	
-
 
 };
 

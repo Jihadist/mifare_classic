@@ -8,8 +8,10 @@ cmake_minimum_required (VERSION 3.8)
 
 set(SOURCE_EXE main.cpp)
 set(SOURCE_LIB "block.cpp")
+
 add_library(block STATIC ${SOURCE_LIB})
 set(SOURCE_LIB "trailer.cpp")
+
 add_library(trailer STATIC ${SOURCE_LIB})
 add_executable(mifare ${SOURCE_EXE})
 target_link_libraries(mifare block trailer)	

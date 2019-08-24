@@ -8,6 +8,7 @@
 #include <iostream>
 #include <sstream>
 #include <array>
+#include <vector>
 
 typedef uint8_t byte;
 typedef std::array<byte,16> byteset;
@@ -19,7 +20,7 @@ public:
 
 	explicit block(const char* c);
 	block() = default;
-	//block() :dataset(16){	}
+
 	friend std::ostream& operator<<(std::ostream& os, const block& obj);
 	friend std::istream& operator>>(std::istream& is, block& obj);
 	static byte * extract(block& obj) { return obj.dataset.data(); }
@@ -29,9 +30,13 @@ protected:
 	static int check(std::string* s);
 
 	std::string subblock(const byte pos, const byte len = 6);
-private:
+	std::vector<byte> str_to_vec(const std::string* s);
+
 	byteset dataset;
+private:
+	
 	void construct(std::string* s);
+	
 
 
 };

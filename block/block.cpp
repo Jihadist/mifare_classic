@@ -22,8 +22,20 @@ void block::construct(std::string* s)
 {
 	if (check(s))
 		for (byte i = 0; i != 16; ++i)
-			dataset.at(i) = std::stoi(s->substr(i * 2, 2), nullptr, 16);
+			dataset.at(i) = std::stoi(s->substr(int(i) * 2, 2), nullptr, 16);
 }
+
+std::vector<byte> block::str_to_vec(const std::string* s) 
+{
+	std::vector<byte> buf(s->length()/2,NULL);
+	//std::cerr << "enter str_to_vec" << std::endl;
+	//std::cerr << s->length() << std::endl;
+	for (std::size_t i=0;i!=s->length()/2;++i)
+		buf.at(i)= std::stoi(s->substr(int(i) * 2, 2), nullptr, 16);
+	//std::cerr << buf.size() << std::endl;
+	return buf;
+}
+
 
 int block::check(std::string* s)
 {
@@ -38,13 +50,15 @@ int block::check(std::string* s)
 
 std::string block::subblock(const byte pos, const byte len)
 {
-	std::shared_ptr<std::stringstream> stream;
-	stream->fill('0');
-	stream->flags(std::ios::hex);
-	std::for_each(dataset.begin() + pos, dataset.end() + pos + len, [&stream](const byte n)
+	std::cerr << "enter func sub-block" << std::endl;
+	std::stringstream stream;
+	stream.fill('0');
+	stream.flags(std::ios::hex);
+	std::for_each(dataset.begin() + pos, dataset.begin() + pos + len, [&stream](const byte n)
 	{
-		stream->width(2);
-		*stream << +n;
+		stream.width(2);
+		stream << +n;
 	});
-	return stream->str();
+	std::cerr << "func sub-block completed" << std::endl;
+	return stream.str();
 }

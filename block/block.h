@@ -19,7 +19,11 @@ public:
 		if (check(s))
 			construct(s);
 	}
-
+	block(const char *c)
+	{
+		std::string buf = c;
+		construct(&buf);
+	}
 	block() :byteset(16){	}
 	friend std::ostream& operator<<(std::ostream& os, const block& obj);
 	friend std::istream& operator>>(std::istream& is, block& obj);

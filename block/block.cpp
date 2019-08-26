@@ -20,9 +20,11 @@ block block::change(const byte pos, byte value)
 
 void block::construct(std::string* s)
 {
+	dataset.reserve(16);
 	if (check(s))
 		for (byte i = 0; i != 16; ++i)
-			dataset.at(i) = std::stoi(s->substr(int(i) * 2, 2), nullptr, 16);
+			//dataset.at(i) = std::stoi(s->substr(int(i) * 2, 2), nullptr, 16);
+			dataset.push_back(std::stoi(s->substr(int(i) * 2, 2), nullptr, 16));
 }
 
 std::vector<byte> block::str_to_vec(const std::string* s) 
@@ -62,4 +64,27 @@ std::string block::subblock(const byte pos, const byte len)
 	});
 	std::cerr << "func sub-block completed" << std::endl;
 	return stream.str();
+}
+
+
+std::ostream& operator<<(std::ostream& os, const block& obj)
+{
+	os.fill('0');
+	os.flags(std::ios::hex);
+
+	for (const byte& i : obj.dataset)
+	{
+		os.width(2);
+		os << +i;
+	}
+	return os;
+}
+
+
+std::istream& operator>>(std::istream& is, block& obj)
+{
+	std::string buf;
+	std::getline(is, buf);
+	obj.construct(&buf);
+	return is;
 }

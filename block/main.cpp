@@ -3,6 +3,7 @@
 
 #include "block.h"
 #include "trailer.h"
+#include "card.h"
 #include <iostream>
 
 using namespace std;
@@ -19,9 +20,11 @@ void test(){
 	cout << b << endl;
 	}
 
+
 int main()
 {
-
+	card c;
+	//cin >> c;
 	cout << "Hello CMake."<< endl;
 	test();
 	return 0;

@@ -27,6 +27,15 @@ void block::construct(std::string* s)
 			dataset.push_back(std::stoi(s->substr(int(i) * 2, 2), nullptr, 16));
 }
 
+void block::construct(const std::string* s)
+{
+	dataset.reserve(16);
+	if (check(s))
+		for (byte i = 0; i != 16; ++i)
+			//dataset.at(i) = std::stoi(s->substr(int(i) * 2, 2), nullptr, 16);
+			dataset.push_back(std::stoi(s->substr(int(i) * 2, 2), nullptr, 16));
+}
+
 std::vector<byte> block::str_to_vec(const std::string* s) 
 {
 	// условие для проверки длины входящей строки на случай строки нечетной длины
@@ -41,6 +50,17 @@ std::vector<byte> block::str_to_vec(const std::string* s)
 
 
 int block::check(std::string* s)
+{
+	// скорее всего уже не нужно
+	if (s->size() != 32)
+	{
+		std::cerr << "Uncorrected block length";
+		return 2;
+	}
+	return 1;
+}
+
+int block::check(const std::string* s)
 {
 	// скорее всего уже не нужно
 	if (s->size() != 32)
@@ -87,4 +107,10 @@ std::istream& operator>>(std::istream& is, block& obj)
 	std::getline(is, buf);
 	obj.construct(&buf);
 	return is;
+}
+
+std::string& operator>>(const std::string& s, block& rhs)
+{
+	rhs.construct(&s);
+	return const_cast<std::string&>(s);
 }

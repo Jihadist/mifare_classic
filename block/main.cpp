@@ -5,10 +5,11 @@
 #include "trailer.h"
 #include "card.h"
 #include <iostream>
+#include <fstream>
 
 using namespace std;
 
-void test(){
+void block_test(){
 	block b;
 	cin >> b;
 	cout << b<<endl;
@@ -20,13 +21,33 @@ void test(){
 	cout << b << endl;
 	}
 
+void card_test()
+{
+	std::string buf;
+	std::ifstream file; ;
+	card c(1);
+	//cin >> c;
+	file.open("D:/linux/RFID/Самара/MCT Dumps/9643 90630 33039 91914");
+	//file.open(s"fi");
+	if (file.is_open())
+		file >> c;
+	//else
+	//	throw std::runtime_error("file couldn't open");
+	cout << c;
+	//std::getline(file, buf);
+	//std::cout << buf;
+	//cout << c.debug()->at(0);
+
+}
 
 int main()
 {
-	card c;
-	//cin >> c;
+	
+	card_test();
+	//cout << c.debug()->capacity();
+	
 	cout << "Hello CMake."<< endl;
-	test();
+
 	return 0;
 }
 

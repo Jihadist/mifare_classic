@@ -17,13 +17,15 @@ class block
 {
 	
 public:
+	// safety
 	explicit block(std::string* s);
-
+	// unsafety
 	explicit block(const char* c);
 	block() = default;
 
 	friend std::ostream& operator<<(std::ostream& os, const block& obj);
 	friend std::istream& operator>>(std::istream& is, block& obj);
+	friend std::string& operator>>(const std::string& s, block& rhs);
 
 	auto begin() { return dataset.begin(); }
 	auto end() { return dataset.end(); }
@@ -32,6 +34,7 @@ public:
 	byte get(const byte pos) { return dataset.at(pos); }
 protected:
 	static int check(std::string* s);
+	static int check(const std::string* s);
 
 	std::string subblock(const byte pos, const byte len = 6);
 	static std::vector<byte> str_to_vec(const std::string* s);
@@ -40,7 +43,6 @@ protected:
 private:
 	
 	void construct(std::string* s);
-
+	void construct(const std::string* s);
 };
-
 

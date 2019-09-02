@@ -23,28 +23,23 @@ void block_test(){
 
 void card_test()
 {
+	//cout << endl;
 	std::string buf;
 	std::ifstream file; ;
 	card c(1);
-	//cin >> c;
 	file.open("D:/linux/RFID/Самара/MCT Dumps/9643 90630 33039 91914");
-	//file.open(s"fi");
 	if (file.is_open())
 		file >> c;
-	//else
-	//	throw std::runtime_error("file couldn't open");
+	else
+		throw std::runtime_error("file couldn't open");
 	cout << c;
-	//std::getline(file, buf);
-	//std::cout << buf;
-	//cout << c.debug()->at(0);
-
+	cout << endl;
 }
 
 int main()
 {
 	
 	card_test();
-	//cout << c.debug()->capacity();
 	
 	cout << "Hello CMake."<< endl;
 

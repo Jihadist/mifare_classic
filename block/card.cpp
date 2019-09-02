@@ -19,7 +19,7 @@ std::istream & operator>>(std::istream& is, card& rhs)
 
 std::ostream& operator<<(std::ostream& os, const card& rhs)
 {
-	std::for_each(rhs.begin(), rhs.end(), [&os](block s) {os << s<< std::endl; });
+	std::for_each(rhs.begin(), rhs.end(), [&os](const block &s) {os << s<< std::endl; });
 	return os;
 }
 

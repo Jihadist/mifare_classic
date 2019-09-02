@@ -17,6 +17,8 @@ add_library(trailer STATIC ${SOURCE_LIB})
 set(SOURCE_LIB "card.cpp")
 add_library(card STATIC ${SOURCE_LIB})
 
+
+file(GLOB SRC_FILES ${PROJECT_SOURCE_DIR}/*.cpp)
 add_executable(mifare ${SOURCE_EXE})
 target_link_libraries(mifare block trailer card)	
 # TODO: Добавьте тесты и целевые объекты, если это необходимо.

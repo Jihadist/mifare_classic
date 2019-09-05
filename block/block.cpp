@@ -49,6 +49,8 @@ std::vector<byte> block::str_to_vec(const std::string* s)
 }
 
 
+
+
 int block::check(std::string* s)
 {
 	// скорее всего уже не нужно
@@ -58,6 +60,7 @@ int block::check(std::string* s)
 		return 2;
 	}
 	return 1;
+
 }
 
 int block::check(const std::string* s)

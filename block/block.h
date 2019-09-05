@@ -11,7 +11,7 @@
 #include <vector>
 
 typedef uint8_t byte;
-//typedef std::array<byte,16> byteset;
+
 typedef std::vector<byte> byteset;
 class block
 {
@@ -30,17 +30,20 @@ public:
 	auto begin() { return dataset.begin(); }
 	auto end() { return dataset.end(); }
 	static byte * extract(block& obj) { return obj.dataset.data(); }
-	block change(const byte pos, byte value);
+	block change(byte pos, byte value);
 	byte get(const byte pos) { return dataset.at(pos); }
 protected:
-	static int check(std::string* s);
-	static int check(const std::string* s);
 
-	std::string subblock(const byte pos, const byte len = 6);
+	std::string subblock(byte pos, byte len = 6);
 	static std::vector<byte> str_to_vec(const std::string* s);
 
 	byteset dataset;
+
+	//byteset& raw() { return this->dataset; }
+	int check(std::string* s);
+	int check(const std::string* s);
 private:
+
 	
 	void construct(std::string* s);
 	void construct(const std::string* s);

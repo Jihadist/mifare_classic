@@ -1,4 +1,4 @@
-#include "block.h"
+#include "../include/block.h"
 
 block::block(std::string* s)
 {

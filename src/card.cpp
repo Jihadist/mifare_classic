@@ -1,7 +1,5 @@
-#include "card.h"
-#include "block.h"
-
-
+#include "../include/card.h"
+#include "../include/block.h"
 
 std::istream & operator>>(std::istream& is, card& rhs)
 {

@@ -1,11 +1,13 @@
 ﻿// block.cpp: определяет точку входа для приложения.
 //
 
-#include "block.h"
-#include "trailer.h"
-#include "card.h"
+
 #include <iostream>
 #include <fstream>
+
+#include "include/block.h"
+#include "include/trailer.h"
+#include "include/card.h"
 
 using namespace std;
 

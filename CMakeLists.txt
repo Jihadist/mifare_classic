@@ -16,7 +16,7 @@ set ( CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 
 target_link_libraries(mifare data)
 install(TARGETS mifare 
- #       EXPORT data
+        EXPORT data
 		ARCHIVE
 		CONFIGURATIONS Debug
         LIBRARY DESTINATION lib
@@ -24,8 +24,7 @@ install(TARGETS mifare
         RUNTIME DESTINATION bin
         INCLUDES DESTINATION include
         )
-install(EXPORT data
-	DESTINATION libber)
+
 install(TARGETS mifare 
         EXPORT data
 		CONFIGURATIONS RelMinSize
